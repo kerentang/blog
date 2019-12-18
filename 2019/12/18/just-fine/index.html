@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一觉醒来，我穿越到了大秦帝国，由于服饰不同差点被砍，一番机智交流总算弄懂了我是上天派来强行改善他们行军期间消息传递的神奇大宝贝。由于我都穿越了，所以我听懂了他们的语言，始皇端坐，知道我是天上来的差点拉我进炼丹炉。幸亏我早已得到卢本伟真传，给始皇端了一杯卡布奇诺后说明了来意，只要给我一些士兵就行。始皇听了觉得有点亏但被我捂住了嘴，话不多说，我已经来到练兵场的一头开始吹风，风虽大，都带不起我的体重，">
+<meta name="keywords" content="学习?学个屁, 前端神奇宝贝">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我根本不懂-TCP&#x2F;IP">
+<meta property="og:url" content="http://yoursite.com/2019/12/18/just-fine/index.html">
+<meta property="og:site_name" content="keren">
+<meta property="og:description" content="一觉醒来，我穿越到了大秦帝国，由于服饰不同差点被砍，一番机智交流总算弄懂了我是上天派来强行改善他们行军期间消息传递的神奇大宝贝。由于我都穿越了，所以我听懂了他们的语言，始皇端坐，知道我是天上来的差点拉我进炼丹炉。幸亏我早已得到卢本伟真传，给始皇端了一杯卡布奇诺后说明了来意，只要给我一些士兵就行。始皇听了觉得有点亏但被我捂住了嘴，话不多说，我已经来到练兵场的一头开始吹风，风虽大，都带不起我的体重，">
+<meta property="og:updated_time" content="2019-12-18T09:42:49.509Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我根本不懂-TCP&#x2F;IP">
+<meta name="twitter:description" content="一觉醒来，我穿越到了大秦帝国，由于服饰不同差点被砍，一番机智交流总算弄懂了我是上天派来强行改善他们行军期间消息传递的神奇大宝贝。由于我都穿越了，所以我听懂了他们的语言，始皇端坐，知道我是天上来的差点拉我进炼丹炉。幸亏我早已得到卢本伟真传，给始皇端了一杯卡布奇诺后说明了来意，只要给我一些士兵就行。始皇听了觉得有点亏但被我捂住了嘴，话不多说，我已经来到练兵场的一头开始吹风，风虽大，都带不起我的体重，">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/18/just-fine/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>我根本不懂-TCP/IP | keren</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">keren</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">可爱又迷人的反派角色</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/18/just-fine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="keren tang">
+      <meta itemprop="description" content="孤独的钢铁暴龙兽">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="keren">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">我根本不懂-TCP/IP
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-18 12:49:08 / 修改时间：17:42:49" itemprop="dateCreated datePublished" datetime="2019-12-18T12:49:08+08:00">2019-12-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- 1.网络协议(nodejs服务器) => 拓扑图 => 2.数据结构 => 3.数据库&SQL(redis & mysql) => 4.Nodejs => 5.ES6 => 6.vue底层原理 => 7.浏览器渲染原理 -->
+<p>一觉醒来，我穿越到了大秦帝国，由于服饰不同差点被砍，一番机智交流总算弄懂了我是上天派来强行改善他们行军期间消息传递的神奇大宝贝。由于我都穿越了，所以我听懂了他们的语言，始皇端坐，知道我是天上来的差点拉我进炼丹炉。幸亏我早已得到卢本伟真传，给始皇端了一杯卡布奇诺后说明了来意，只要给我一些士兵就行。<br>始皇听了觉得有点亏但被我捂住了嘴，话不多说，我已经来到练兵场的一头开始吹风，风虽大，都带不起我的体重，罢了罢了。<br>我是个狠人，由于穿越之前我已经查了没有人穿到秦朝来搞网络基站建设，所以我必有一番作为，想到这我笑出了声。我立刻从四次元口袋掏出了几张纸和笔，分给了我的士兵,让他们写上了自己的名字。<br>为了让始皇下血本投资我的基站，我得演示一遍网络传输原理说服始皇。首先演示基础单元之间的消息传递：</p>
+<a id="more"></a>
+<ol>
+<li>点对点的通信：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">A-B-C-D // 例如A的纸上是：士兵甲to士兵X |消息栏</div></pre></td></tr></table></figure>
+<p>操场上站了4个人，彼此不认识但是得互相传递消息，每人平均吼一次，听到自己名字的就举手，这种在小范围内通过广播的方式传递消息完全没问题，问题是行军途中有数千人，全吼一遍第一天全军嗓子都得坏了，打仗就没气势了，为了保护气势。始皇说你赶紧给孤想个办法，想不出来就主动进炼丹炉做点仙人贡献。</p>
+<p>现在场上人数迅速增大到好多人，我将他们随机分为了4组，每组4列，然后每列新增了一个序号，每一组有个专人负责广播，4组分为两军。每人面前有2个投递框分为私信和物品。</p>
+<blockquote>
+<p>士兵甲（MAC地址）;投递口（端口）,私信: 80, 物品67;组号（子网掩码）;序号(IP)</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">  A-B-C-D | E-F-G-H // 士兵甲（或Gatway1）to 士兵X（或Gatwayx）| 序号A to 序号P | 投递口 | 消息栏</div><div class="line">  --arp---|---arp--</div><div class="line">  ----Gatway1-------</div><div class="line">          |</div><div class="line">---- DHCP分配动态IP(基于UDP)、DNS查找对应域名的IP(基于UDP)、HTTPS应用程序（网页）数据格式(基于TCP)---- // 针对每组新加入的士兵分配序号，转换士兵头衔为序号，发送消息</div><div class="line">          |</div><div class="line">  ----Gateway2-------</div><div class="line">  --arp---|---arp--</div><div class="line">  I-J-K-L | M-N-O-P</div></pre></td></tr></table></figure>
+<p> 问题来了，现在两军对阵，士兵甲和士兵X觉得对方很眼熟，可能是老乡，想进一步交流，已知他们通过意念（DHCP）知道了彼此的序号，他们想见一面互诉思乡之情，我允许了，但是只知道了序号，其他一无所知，怎么办呢？</p>
+<p>看图所知。这时A吼了一声(arp广播)消息查看本组：序号P有伐？名字报一下（通过IP查对方MAC地址），本组没有，则arp提供了本组Gateway1的名字-阿珍，让A去找阿珍帮忙，Gateway1分发该消息查询序号P和其分组，Gateway2回复了，查到了序号P在第四组并通过arp找到了P对应的士兵X。这样A80私信框的包裹就发给了P的私信框80。</p>
+<p>可是问题又来了，P收没收到A母鸡啊，怎么让A也知道这一路送信的路程是安全的，信没有被掉包呢？</p>
+<p>始皇没有耐心回答我的问题，一会就是他蹴鞠的时辰了，搞不出来我就得进炼丹炉练习火眼金睛。说实话我一点都不慌，但是时间太少，我怕来不及听到始皇赞叹的声音，于是我先打晕了他：</p>
+<p>现在有2种方案，送到了就不管，就是上文，A:80对P:80的收信情况一无所知称为UDP又名U Do know a P(手动滑稽)。<br>由于本人十分靠谱，所以重点再演示一下TCP，TCP跟UDP很像，我们回退到A蠢蠢欲动进一步交流的时候。为了知道邮政业务路途通顺，A委托邮政专员重新走了上文那一套流程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">A:80=socket=&gt;P:80=socket: 请回答[SYN=1]公元233/12/18号早晨9点阳光微醺，您早饭吃了吗[seq=x]？</div><div class="line">P:80=socket=&gt;A:80=socket: 请回答[SYN=1]233/12/18号早晨10点，吃过了[ack=x+1]，您吃了吗[seq=y]？</div><div class="line"><span class="comment"># 此时P只知道A可以发信但是不知道能不能收信，所以P希望A收到信后能回复一条，这下双方就可以尽情的抒发思乡之情了</span></div><div class="line">A:80=socket=&gt;P:80=socket: 吃过了呢[ack=y+1]///O_o///[seq=z]</div><div class="line"><span class="comment"># 好嘛这下就知道对方四肢健全邮政道路畅通无阻，敢不回信就完了</span></div></pre></td></tr></table></figure>
+<p>A准备了一卡车的东西和3条牛，但是不知道P的家里有没有草原以及仓库，由于A所在地的邮差是一辆小三轮，他的记忆只有几分钟，刚才3次确认的信息还记得收信方的名字，不过他们邮局有规定，同一个客户最多送6个小三轮车的包裹，多的得加车。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 整条连接 士兵甲-A:80-socket =&gt;士兵X-P:80-socket</span></div><div class="line">  A-B-C-D | E-F-G-H // 士兵甲（或Gatway1）to 士兵X（或Gatwayx）| 序号A to 序号P | 投递口 | 消息栏</div><div class="line">私信框</div><div class="line">  |__</div><div class="line">    |</div><div class="line">  --arp---|---arp--</div><div class="line">      \</div><div class="line">  ----Gatway1-------</div><div class="line">          |</div><div class="line">---- DHCP、DNS、HTTPS---- // 针对每组新加入的士兵分配序号，转换士兵头衔为序号，发送消息</div><div class="line">          |</div><div class="line">  ----Gateway2-------</div><div class="line">              \</div><div class="line">  --arp---|---arp--</div><div class="line">                |</div><div class="line">                 \</div><div class="line">                 私信框</div><div class="line">  I-J-K-L | M-N-O-P</div></pre></td></tr></table></figure>
+<p>由于我需要向始皇展示一下强大的HTTP和加密，不得已，我必须演示HTTP通信流程。到这里，始皇突然醒了，他问了一个问题，一下子我们又得暂时回到TCP这里来解答一下始皇的疑问：</p>
+<blockquote>
+<p>孤是一国之主十分任性就是要发送一个巨包(Jumbo Frame)，你怎么办？</p>
+</blockquote>
+<p>短暂的一瞬，我们忘了炼丹炉的存在一起沉浸在技术瓶颈的阴沟里畅想了几秒。<br>我觉得这个问题很大，这个包很大，始皇提了一个好问题，但是我现在有点事，需要下回再议，我得穿越回来找点资料才行。</p>
+<p>—– 有希望续上的内容 ——</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习-学个屁-前端神奇宝贝/" rel="tag"># 学习?学个屁, 前端神奇宝贝</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/17/oh-shitty-life/" rel="next" title="欧希特">
+                <i class="fa fa-chevron-left"></i> 欧希特
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">keren tang</p>
+              <p class="site-description motion-element" itemprop="description">孤独的钢铁暴龙兽</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">keren tang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.3.7</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
